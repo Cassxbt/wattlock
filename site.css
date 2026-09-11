@@ -39,12 +39,12 @@ code { font-family: var(--mono); font-size: 0.86em; color: var(--lime); }
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 40;
+  z-index: 50;
   height: var(--nav);
   display: flex;
   align-items: center;
   padding: 0 28px;
-  background: rgba(8, 10, 9, 0.72);
+  background: rgba(8, 10, 9, 0.92);
   backdrop-filter: blur(16px) saturate(140%);
   border-bottom: 1px solid var(--line);
 }
