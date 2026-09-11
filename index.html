@@ -24,23 +24,18 @@
             <a class="button secondary" href="demo/">Play the replay</a>
           </div>
         </div>
-        <div class="product-frame">
-          <div class="product-chrome"><span>wattlock /proof</span><span>no wallet</span></div>
-          <div class="product-body">
-            <p class="badge">recomputed</p>
-            <strong>Chain matches</strong>
-            <p>Public explorers agree. queryId hashed from the 0x0FD2 log.</p>
-            <ul class="product-checks">
-              <li>CC3 settle success on WattLockASC</li>
-              <li>Sepolia CertificateAlreadyReserved</li>
-              <li>CC3 Query already processed</li>
-            </ul>
+        <figure class="laptop" aria-label="Terminal showing locked access after a duplicate settle">
+          <div class="laptop-screen">
+            <pre class="tty"><span class="dim">wattlock@cc3 ~</span>
+<span class="ok">$</span> settle --proof 0x109b096b…5503
+<span class="dim">attest</span>   chainKey=1 height=11667706
+<span class="ok">0x0FD2</span>  TransactionVerified
+<span class="err">revert</span>  Query already processed
+<span class="err">access</span>  LOCKED
+<span class="cursor"></span></pre>
           </div>
-          <div class="hero-receipt">
-            <div><p>Published settle</p><strong>1 tCTC on CC3</strong></div>
-            <div><p>Published refuse</p><strong>Query already processed</strong></div>
-          </div>
-        </div>
+          <div class="laptop-deck"></div>
+        </figure>
       </section>
 
       <section class="section" id="benefits">
