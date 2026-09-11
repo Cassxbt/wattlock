@@ -6,7 +6,8 @@
     "build": "forge build",
     "test": "forge test",
     "format:check": "forge fmt --check",
-    "verify": "yarn format:check && yarn build && yarn test"
+    "verify": "yarn format:check && yarn build && yarn test",
+    "judge:verify": "node script/judge-verify.mjs"
   },
   "dependencies": {
     "@gluwa/asc-contracts": "0.2.1",
