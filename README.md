@@ -4,6 +4,8 @@
 
 `RESERVE → PROVE → LOCK → SETTLE → BLOCK → VERIFY`
 
+**Live:** [wattlock.vercel.app](https://wattlock.vercel.app) · **Source:** [github.com/Cassxbt/wattlock](https://github.com/Cassxbt/wattlock)
+
 ## The failure WattLock prevents
 
 An energy certificate can be allocated to several independent downstream compute-settlement systems when their ledgers do not share enforceable state. A dashboard can report that conflict after the fact; it cannot prevent a payout.
