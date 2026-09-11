@@ -31,17 +31,30 @@ const WattLockSite = (() => {
         (active === "Play demo" && label === "Replay") ||
         (active === "How it works" && label === "Mechanism");
       header.innerHTML = `
-        <a class="brand" href="${base}/" aria-label="WattLock home"><span class="brand-mark">W</span>WattLock</a>
-        <nav aria-label="Main navigation">
+        <a class="brand" href="${base}/" aria-label="WattLock home"><img class="brand-mark-img" src="${base}/assets/wattlock-mark.jpg" alt="" width="28" height="28" />WattLock</a>
+        <nav id="site-nav" aria-label="Main navigation">
           ${nav.map(([label, href]) => `<a class="${activeFor(label) ? "is-active" : ""}" href="${href}">${label}</a>`).join("")}
         </nav>
-        <a class="nav-cta" href="${base}/proof/">Inspect proof</a>`;
+        <a class="nav-cta" href="${base}/proof/">Inspect proof</a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav"><span></span></button>`;
+      const toggle = header.querySelector(".nav-toggle");
+      toggle.addEventListener("click", () => {
+        const open = document.body.classList.toggle("nav-open");
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      });
+      header.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.body.classList.remove("nav-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
     }
 
     if (footer) {
       footer.innerHTML = `
         <div>
-          <a class="brand" href="${base}/"><span class="brand-mark">W</span>WattLock</a>
+          <a class="brand" href="${base}/"><img class="brand-mark-img" src="${base}/assets/wattlock-mark.jpg" alt="" width="28" height="28" />WattLock</a>
           <p>Certificate-backed compute allocation on Creditcoin.</p>
           <p class="footer-note">Sepolia to Attestcoin to CC3 testnet. Demo is a replay.</p>
         </div>
@@ -57,6 +70,23 @@ const WattLockSite = (() => {
           <a href="https://wattlock.vercel.app/proof/">Live proof</a>
         </div>`;
     }
+
+    document.querySelectorAll("[data-accordion]").forEach((root) => {
+      root.querySelectorAll(".acc-item").forEach((item) => {
+        const btn = item.querySelector("button");
+        btn.addEventListener("click", () => {
+          const wasOpen = item.classList.contains("open");
+          root.querySelectorAll(".acc-item").forEach((other) => {
+            other.classList.remove("open");
+            other.querySelector("button").setAttribute("aria-expanded", "false");
+          });
+          if (!wasOpen) {
+            item.classList.add("open");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        });
+      });
+    });
   }
 
   function mountDemo() {

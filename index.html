@@ -24,8 +24,18 @@
             <a class="button secondary" href="demo/">Play the replay</a>
           </div>
         </div>
-        <div class="hero-media">
-          <img src="assets/wattlock-hero.png" alt="Certificate tile over a compute module" />
+        <div class="product-frame">
+          <div class="product-chrome"><span>wattlock /proof</span><span>no wallet</span></div>
+          <div class="product-body">
+            <p class="badge">recomputed</p>
+            <strong>Chain matches</strong>
+            <p>Public explorers agree. queryId hashed from the 0x0FD2 log.</p>
+            <ul class="product-checks">
+              <li>CC3 settle success on WattLockASC</li>
+              <li>Sepolia CertificateAlreadyReserved</li>
+              <li>CC3 Query already processed</li>
+            </ul>
+          </div>
           <div class="hero-receipt">
             <div><p>Published settle</p><strong>1 tCTC on CC3</strong></div>
             <div><p>Published refuse</p><strong>Query already processed</strong></div>
@@ -33,50 +43,69 @@
         </div>
       </section>
 
-      <div class="benefit-row">
-        <article><h3>Reserve once</h3><p>Sepolia emits one terminal CertificateReserved event.</p></article>
-        <article><h3>Prove it</h3><p>Attestcoin 0x0FD2 verifies that receipt inside settle.</p></article>
-        <article><h3>Pay once</h3><p>The funded job releases a fixed 1 tCTC escrow.</p></article>
-        <article><h3>Block reuse</h3><p>Source and destination both revert on a second claim.</p></article>
-      </div>
-
-      <section class="section mechanism" aria-labelledby="mechanism-title">
-        <div class="mechanism-sticky">
-          <p class="badge">Less noise. More lock.</p>
-          <h2 id="mechanism-title">Reserve. Prove. Lock. Settle. Block. Verify.</h2>
-          <p class="section-lede">This is not a certificate registry. It is a gate in the compute settlement path. Remove Attestcoin and the payout disappears.</p>
-        </div>
-        <div class="mechanism-list">
-          <article><span>Reserve</span><div><h3>Terminal source lock</h3><p>The certificate owner makes one reservation on Sepolia.</p></div><strong>Source state</strong></article>
-          <article><span>Prove</span><div><h3>Attestcoin is the engine</h3><p>The CC3 call verifies the exact source receipt in the same transaction.</p></div><strong>0x0FD2</strong></article>
-          <article><span>Lock</span><div><h3>Every field must match</h3><p>Issuer, event, owner, energy, deadline, and allocation hash.</p></div><strong>Exact match</strong></article>
-          <article><span>Settle</span><div><h3>Escrow pays the provider</h3><p>Only then does the fixed test-CTC leave the job.</p></div><strong>Atomic payout</strong></article>
-          <article><span>Block</span><div><h3>Reuse is a named revert</h3><p>CertificateAlreadyReserved on Sepolia. Query already processed on CC3.</p></div><strong>Live refuses</strong></article>
-        </div>
-      </section>
-
-      <section class="section-tight">
-        <div class="proof-callout">
+      <section class="section" id="benefits">
+        <div class="benefits">
           <div>
-            <p class="badge">No-wallet judge path</p>
-            <h2>Open /proof. Watch it recompute.</h2>
-            <p>The page hashes queryId from the 0x0FD2 log. A tampered hash turns red. yarn judge:verify fails if the README lies.</p>
-            <div class="hero-actions"><a class="button" href="proof/">Open live proof</a></div>
+            <p class="badge">Benefits</p>
+            <h2>Less noise. More lock.</h2>
+            <p class="section-lede">WattLock is intentionally small. Every step earns its place in the settlement path.</p>
+            <div class="accordion" data-accordion>
+              <div class="acc-item open">
+                <button type="button" aria-expanded="true"><h3>One certificate, one job</h3></button>
+                <div class="acc-body">A terminal Sepolia reservation is the only eligibility input. There is no reusable green credential and no second allocation.</div>
+              </div>
+              <div class="acc-item">
+                <button type="button" aria-expanded="false"><h3>Attestcoin is the engine</h3></button>
+                <div class="acc-body">settleWithProof cannot pay unless 0x0FD2 verifies the exact source receipt in the same transaction.</div>
+              </div>
+              <div class="acc-item">
+                <button type="button" aria-expanded="false"><h3>Named refusal, live</h3></button>
+                <div class="acc-body">Sepolia reverts CertificateAlreadyReserved. CC3 reverts Query already processed. Both receipts are public.</div>
+              </div>
+              <div class="acc-item">
+                <button type="button" aria-expanded="false"><h3>Judges do not need a wallet</h3></button>
+                <div class="acc-body">/proof recomputes queryId in the browser. yarn judge:verify fails if the README lies.</div>
+              </div>
+            </div>
           </div>
-          <div class="proof-facts">
-            <div><small>Source</small><strong>Ethereum Sepolia</strong></div>
-            <div><small>Attestcoin key</small><strong>1</strong></div>
-            <div><small>Settlement</small><strong>Creditcoin CC3</strong></div>
-            <div><small>Contracts</small><strong>Blockscout verified</strong></div>
-          </div>
+          <img class="benefits-photo" src="assets/wattlock-latch.jpg" alt="Closed steel latch on a dark chassis" />
         </div>
       </section>
 
-      <section class="section route-grid" aria-label="Judge paths">
-        <article class="route-card"><h3>Replay the gate without a wallet</h3><p>Allowed settle, then a duplicate certificate. Labeled replay of published receipts.</p><a href="demo/">Open replay</a></article>
-        <article class="route-card"><h3>Read the exact mechanism</h3><p>One certificate, one job, one payout. No token and no marketplace.</p><a href="how-it-works/">How it works</a></article>
-        <article class="route-card"><h3>What the proof does not say</h3><p>No physical generation, no green GPU, no hourly matching.</p><a href="faq/">FAQ</a></article>
-        <article class="route-card"><h3>Source on GitHub</h3><p>Foundry suite, judge:verify, and the live receipt table.</p><a href="https://github.com/Cassxbt/wattlock">github.com/Cassxbt/wattlock</a></article>
+      <section class="section-tight" id="features">
+        <p class="badge">Features</p>
+        <h2>Everything you need, nothing you don't</h2>
+        <p class="section-lede">One mechanism. No marketplace. No token.</p>
+        <div class="feature-grid">
+          <article class="feature-card"><div class="shot"><strong>Reserve</strong></div><div class="body"><h3>Source lock</h3><p>One terminal CertificateReserved event on Sepolia.</p></div></article>
+          <article class="feature-card"><div class="shot"><strong>Prove</strong></div><div class="body"><h3>0x0FD2</h3><p>Attestcoin verifies inclusion inside settleWithProof.</p></div></article>
+          <article class="feature-card"><div class="shot"><strong>Settle</strong></div><div class="body"><h3>Atomic payout</h3><p>Fixed 1 tCTC leaves the job only after the proof matches.</p></div></article>
+          <article class="feature-card"><div class="shot"><strong>Block</strong></div><div class="body"><h3>Replay refuse</h3><p>The same proof cannot pay twice. Live CC3 revert.</p></div></article>
+        </div>
+      </section>
+
+      <section class="section-tight" id="security">
+        <p class="badge">Security</p>
+        <h2>Secure by design</h2>
+        <p class="section-lede">The gate is on-chain. The demo is a replay of those receipts.</p>
+        <div class="icon-grid">
+          <article class="icon-tile"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="14"/><path d="M32 18v28M18 32h28"/><circle cx="32" cy="32" r="22"/></svg><span>ATTESTCOIN</span></article>
+          <article class="icon-tile"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="32" r="8"/><path d="M30 32h22v-6M46 32v12"/></svg><span>NAMED REVERT</span></article>
+          <article class="icon-tile"><svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="32" rx="22" ry="12"/><circle cx="32" cy="32" r="6"/></svg><span>NO WALLET</span></article>
+          <article class="icon-tile"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="16" y="14" width="32" height="36" rx="4"/><path d="M24 28h16M24 36h16M24 44h10"/></svg><span>BLOCKSCOUT</span></article>
+          <article class="icon-tile"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 40c8-16 24-16 32 0"/><circle cx="24" cy="28" r="4"/><circle cx="40" cy="28" r="4"/></svg><span>TESTNET</span></article>
+        </div>
+      </section>
+
+      <section class="section-tight" id="verify">
+        <p class="badge">Verify</p>
+        <h2>Simple receipts, no surprises</h2>
+        <p class="section-lede">Three public facts. No hidden happy path.</p>
+        <div class="plan-grid">
+          <article class="plan-card"><h3>Allowed</h3><small>Live CC3 settle</small><p class="price">1 tCTC</p><small>Paid to 0xcafe</small><ul><li>Attestcoin verified</li><li>JobSettled emitted</li><li>Certificate consumed</li></ul></article>
+          <article class="plan-card"><h3>Source refuse</h3><small>Live Sepolia</small><p class="price">Revert</p><small>CertificateAlreadyReserved</small><ul><li>Same cert, second reserve</li><li>Named custom error</li><li>Explorer linked</li></ul></article>
+          <article class="plan-card"><h3>Destination refuse</h3><small>Live CC3</small><p class="price">Revert</p><small>Query already processed</small><ul><li>Same proof, second settle</li><li>ASCBase replay</li><li>/proof recomputes it</li></ul></article>
+        </div>
       </section>
     </main>
     <footer class="site-footer" data-site-footer></footer>
