@@ -35,6 +35,7 @@ Live check: CC3 settle [`0x5285…ac5f`](https://creditcoin-testnet.blockscout.c
 | `RESERVE` — certificate is terminally reserved on Sepolia | [Sepolia reservation transaction](https://sepolia.etherscan.io/tx/0x109b096b94b5d4a312bd78fbe2bded62e53a3a6a1270155a7c6e29ff10d95503) |
 | `SETTLE` — Attestcoin proof verifies on CC3 and releases `1 tCTC` | [CC3 settlement transaction](https://creditcoin-testnet.blockscout.com/tx/0x52853b6220fab2501ef08f9838f9bbe1a5d3dbcb0a0b2a756ed0a3a29853ac5f) |
 | `BLOCK` — duplicate reservation is refused | [Sepolia failed transaction](https://sepolia.etherscan.io/tx/0x9e33281808202cfce95588cc43861ae5434a7d05e7d864753b81b130810407fd) — `CertificateAlreadyReserved()` |
+| `BLOCK` — same Attestcoin query cannot pay twice | [CC3 failed `settleWithProof`](https://creditcoin-testnet.blockscout.com/tx/0x13c8302c6aca4a7ce60a284195152a9af0206b4636957a407ad6d7c6f24e0e56) — `Query already processed` |
 | `VERIFY` — full addresses, IDs, and outcome | [deployment and evidence record](docs/DEPLOYMENTS.md) |
 
 The allowed path was not simulated: `WattLockASC` verified an Attestcoin proof for the Sepolia reservation in the CC3 settlement transaction, emitted `JobSettled`, transferred the fixed escrow to the provider, and marked the certificate consumed.
@@ -99,7 +100,7 @@ The repository contains 11 unit tests covering the allowed settlement and termin
 | Claim | Status |
 | --- | --- |
 | Cross-chain reservation-gated settlement | Real testnet: Sepolia reservation → Attestcoin proof → CC3 payout |
-| Allocation enforcement | Real Sepolia `CertificateAlreadyReserved()`. Destination mismatch/replay: Foundry only; no mined CC3 refuse yet |
+| Allocation enforcement | Real Sepolia `CertificateAlreadyReserved()`. Real CC3 `Query already processed` on the same proof |
 | `/proof` page | Reports published hashes; does not recompute them yet |
 | Energy-certificate issuer | Demo issuer only; a testnet model of an external issuer |
 | Physical renewable generation | Not verified |

@@ -60,7 +60,14 @@ The same source certificate was submitted for reservation again. Sepolia rejecte
 - Failed source transaction: [`0x9e33…07fd`](https://sepolia.etherscan.io/tx/0x9e33281808202cfce95588cc43861ae5434a7d05e7d864753b81b130810407fd)
 - Revert selector: `0x8ef5dd6b` (`CertificateAlreadyReserved()`)
 
-This is the live terminal-lock evidence. A duplicate Attestcoin query is also rejected by the native verifier before WattLock could pay again; WattLock independently rejects a second consumed certificate in its destination-state checks. Those destination rejection paths are unit-tested; this document does not claim a separate live rejected CC3 transaction.
+This is the live terminal-lock evidence on Sepolia.
+
+The same Attestcoin proof of that reservation was submitted again to `WattLockASC.settleWithProof` on CC3. The destination transaction reverted with `Query already processed` (`ASCBase` replay of query id `0x878e…7c18`).
+
+- Failed CC3 settlement: [`0x13c8…0e56`](https://creditcoin-testnet.blockscout.com/tx/0x13c8302c6aca4a7ce60a284195152a9af0206b4636957a407ad6d7c6f24e0e56)
+- Selector: `0xfca7679d` (`settleWithProof`)
+- Status: reverted (receipt status `0`)
+- Proof rebuilt with the official testnet proof builder (`https://proof-gen-api.cc3-testnet.creditcoin.network/`) against source tx `0x109b…5503`
 
 ## Reproduce the boundary precisely
 
