@@ -14,6 +14,20 @@ WattLock makes the source reservation terminal, proves it cross-chain through At
 
 Without Attestcoin, the CC3 contract has no trust-minimized way to inspect the Sepolia reservation receipt. The payout path is therefore unavailable.
 
+## How Attestcoin is used
+
+Official packages: `@gluwa/usc-sdk@0.18.0`, `@gluwa/asc-contracts@0.2.1`. Delete this column and `settleWithProof` cannot pay.
+
+| Surface | Call site | Load-bearing job |
+| --- | --- | --- |
+| `ProofBuilder.waitUntilHeightAttested` / `getProof` | [`script/submit-proof.mjs`](script/submit-proof.mjs) | Builds the source-tx proof after the height is attested |
+| `PrecompileChainInfoProvider.getLatestAttestedHeightAndHash` (`0x0FD3`) | [`script/submit-proof.mjs`](script/submit-proof.mjs) | Operator wait only; not inside `WattLockASC` |
+| `WattLockASC.settleWithProof` | [`contracts/WattLockASC.sol`](contracts/WattLockASC.sol) | Only payout entry. Wrong `chainKey` reverts `WrongSourceChainKey()` before the verifier |
+| `ASCBase.execute` → `0x0FD2.verifyAndEmit` | `@gluwa/asc-contracts` `ASCBase` | Inclusion + continuity. Direct `execute` reverts `DirectExecutionDisabled()` |
+| `0x0FD2.calculateTxIndex` | same `ASCBase._computeQueryId` | Query id for replay protection |
+
+Live check: CC3 settle [`0x5285…ac5f`](https://creditcoin-testnet.blockscout.com/tx/0x52853b6220fab2501ef08f9838f9bbe1a5d3dbcb0a0b2a756ed0a3a29853ac5f) logs `TransactionVerified` from `0x0FD2` then pays `1 tCTC`.
+
 ## Live testnet proof
 
 | Verdict | Public receipt |
@@ -72,11 +86,10 @@ yarn build
 NO_PROXY='*' forge test --offline
 ```
 
-The repository contains 11 unit tests covering the allowed settlement and terminal reservation, allocation mismatch, certificate/query replay, receipt/issuer failures, owner/energy/expiry/source checks, zero job IDs, and reclaim behavior. These unit tests exercise the post-verifier logic; the linked CC3 settlement receipt is the separate live Attestcoin integration evidence.
+The repository contains 11 unit tests covering the allowed settlement and terminal reservation, allocation mismatch, certificate/query replay, receipt/issuer failures, owner/energy/expiry/source checks, zero job IDs, and reclaim behavior. Those tests skip the native `0x0FD2` precompile (`processVerifiedForTest`). The linked CC3 settlement receipt is the live Attestcoin evidence.
 
 ## Technical documentation
 
-- [Judging criteria, scope guard, and acceptance checklist](docs/JUDGING_AND_DECISIONS.md)
 - [Deployments and public evidence](docs/DEPLOYMENTS.md)
 - [Attestcoin protocol chains and environments](https://docs.attestcoin.org/attestcoin-protocol/attestcoin-protocol-chains-environments)
 - [Attestcoin guided tutorials](https://docs.attestcoin.org/attestcoin-protocol/guided-tutorials)
@@ -86,7 +99,8 @@ The repository contains 11 unit tests covering the allowed settlement and termin
 | Claim | Status |
 | --- | --- |
 | Cross-chain reservation-gated settlement | Real testnet: Sepolia reservation → Attestcoin proof → CC3 payout |
-| Allocation enforcement | Real testnet: terminal source rejection plus consumed destination state; destination refusal paths unit-tested |
+| Allocation enforcement | Real Sepolia `CertificateAlreadyReserved()`. Destination mismatch/replay: Foundry only; no mined CC3 refuse yet |
+| `/proof` page | Reports published hashes; does not recompute them yet |
 | Energy-certificate issuer | Demo issuer only; a testnet model of an external issuer |
 | Physical renewable generation | Not verified |
 | Hourly or geographic energy matching | Not verified |
@@ -96,7 +110,7 @@ WattLock does not claim that a GPU physically ran on renewable electricity. It p
 
 ## Submission materials
 
-- Verification UI: implemented as the static [proof record](proof/index.html); publish it with the repository root before submission.
+- Live site: [wattlock.vercel.app](https://wattlock.vercel.app) (`/proof/`, `/demo/` is a replay)
 - Demo video: in progress
 - Submission deck: in progress
 
