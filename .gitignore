@@ -9,4 +9,7 @@ broadcast/
 .DS_Store
 .idea/
 .vscode/
+.vercel/
+.vercel-out/
 docs/JUDGING_AND_DECISIONS.md
+.vercel

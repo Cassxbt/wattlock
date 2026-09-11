@@ -1,0 +1,7 @@
+{
+  "buildCommand": "mkdir -p .vercel-out && cp index.html site.css site.js .nojekyll .vercel-out/ && cp -R assets demo faq how-it-works proof verify .vercel-out/",
+  "outputDirectory": ".vercel-out",
+  "installCommand": "",
+  "cleanUrls": true,
+  "trailingSlash": true
+}
