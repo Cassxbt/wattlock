@@ -76,7 +76,8 @@ h1, h2, h3 {
   height: 28px;
   border-radius: 7px;
   object-fit: cover;
-  background: #000;
+  background: #fff;
+  filter: invert(1);
 }
 .site-header nav {
   display: flex;
