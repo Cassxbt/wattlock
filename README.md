@@ -62,8 +62,8 @@ reserveCertificate(cert, job, allocation hash)          │
 
 | Contract | Purpose | Testnet deployment |
 | --- | --- | --- |
-| `DemoCertificateIssuer` | Testnet model of an external certificate issuer. A certificate owner can make exactly one terminal reservation. | [Sepolia `0xb71f…004a`](https://sepolia.etherscan.io/address/0xb71f79e990629aD3d0aB8a3fd2A8F8a21FE0004a) |
-| `WattLockASC` | Holds one fixed CC3 escrow and verifies the Attestcoin-proved source receipt before paying it. | [CC3 `0x4325…ee39`](https://creditcoin-testnet.blockscout.com/address/0x43259Ac2952ae1583BDF0DC4756Eb86ec963ee39) |
+| `DemoCertificateIssuer` | Testnet model of an external certificate issuer. A certificate owner can make exactly one terminal reservation. | [Sepolia `0xb71f…004a`](https://sepolia.etherscan.io/address/0xb71f79e990629aD3d0aB8a3fd2A8F8a21FE0004a) · [Blockscout verified](https://eth-sepolia.blockscout.com/address/0xb71f79e990629aD3d0aB8a3fd2A8F8a21FE0004a?tab=contract) |
+| `WattLockASC` | Holds one fixed CC3 escrow and verifies the Attestcoin-proved source receipt before paying it. | [CC3 `0x4325…ee39`](https://creditcoin-testnet.blockscout.com/address/0x43259Ac2952ae1583BDF0DC4756Eb86ec963ee39?tab=contract) (Blockscout verified) |
 
 The supported source is deliberately narrow: Sepolia (Attestcoin `chainKey = 1`, EVM chain ID `11155111`) to CC3 Testnet (EVM chain ID `102031`). `settleWithProof` rejects any other source chain key before it invokes the official Attestcoin verifier.
 

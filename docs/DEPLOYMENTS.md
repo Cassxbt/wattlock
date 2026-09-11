@@ -29,7 +29,12 @@ DemoCertificateIssuer(initialOwner = testnet buyer address)
 WattLockASC(issuer = 0xb71f79e990629aD3d0aB8a3fd2A8F8a21FE0004a, sourceChainKey = 1, sourceEvmChainId = 11155111)
 ```
 
-Explorer source verification is not claimed here. Until it is completed, the receipts, committed sources, compiler configuration, and constructor arguments are the reproducible provenance record.
+Explorer source verification (Blockscout, matching this repo's `solc 0.8.30` / optimizer 200 / `via_ir` / shanghai build):
+
+- `WattLockASC` on CC3: [verified](https://creditcoin-testnet.blockscout.com/address/0x43259Ac2952ae1583BDF0DC4756Eb86ec963ee39?tab=contract)
+- `DemoCertificateIssuer` on Sepolia Blockscout: [verified](https://eth-sepolia.blockscout.com/address/0xb71f79e990629aD3d0aB8a3fd2A8F8a21FE0004a?tab=contract)
+
+Etherscan Sepolia verification is not claimed here.
 
 ## Allowed flow — proved and settled
 
