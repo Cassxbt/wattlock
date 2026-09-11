@@ -101,7 +101,7 @@ The repository contains 11 unit tests covering the allowed settlement and termin
 | --- | --- |
 | Cross-chain reservation-gated settlement | Real testnet: Sepolia reservation → Attestcoin proof → CC3 payout |
 | Allocation enforcement | Real Sepolia `CertificateAlreadyReserved()`. Real CC3 `Query already processed` on the same proof |
-| `/proof` page | Reports published hashes; does not recompute them yet |
+| `/proof` page | Recomputes `queryId` from the live `0x0FD2` log when explorers answer; otherwise `reported, not verified here` |
 | Energy-certificate issuer | Demo issuer only; a testnet model of an external issuer |
 | Physical renewable generation | Not verified |
 | Hourly or geographic energy matching | Not verified |

@@ -3,5 +3,15 @@
   "outputDirectory": ".vercel-out",
   "installCommand": "",
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/api/cc3/:path*",
+      "destination": "https://creditcoin-testnet.blockscout.com/api/v2/:path*"
+    },
+    {
+      "source": "/api/sepolia/:path*",
+      "destination": "https://eth-sepolia.blockscout.com/api/v2/:path*"
+    }
+  ]
 }

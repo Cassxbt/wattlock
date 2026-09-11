@@ -121,8 +121,17 @@ h3 { font-size: 1.08rem; letter-spacing: -.03em; }
 
 .proof-record { display: grid; grid-template-columns: .8fr 1.2fr; gap: 18px; }
 .proof-status { padding: 30px; border-radius: 22px; background: #183123; }
+.proof-status.is-failed { background: #2a1714; }
+.proof-status.is-pending { background: #241c12; }
 .proof-status strong { display: block; color: var(--mint); font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: -.07em; }
+.proof-status.is-failed strong { color: var(--danger); }
+.proof-status.is-pending strong { color: var(--gold); }
 .proof-status p { color: var(--muted); }
+.proof-checks { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; }
+.proof-checks li { display: grid; grid-template-columns: 11.5rem 1fr; gap: 10px; color: var(--muted); font-family: var(--mono); font-size: .72rem; }
+.proof-checks li span:first-child { color: var(--gold); text-transform: uppercase; }
+.proof-checks li[data-check-state="recomputed"] span:first-child { color: var(--mint); }
+.proof-checks li[data-check-state="failed"] span:first-child { color: var(--danger); }
 .proof-data { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--line); }
 .proof-data div { display: grid; grid-template-columns: 180px 1fr; gap: 16px; padding: 17px; background: var(--surface); }
 .proof-data dt { color: var(--quiet); font-family: var(--mono); font-size: .72rem; text-transform: uppercase; }
