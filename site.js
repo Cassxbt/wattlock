@@ -48,9 +48,9 @@ const WattLockSite = (() => {
     function render(mode, running = false) {
       const stages = mode === "allowed" ? allowed : blocked;
       panel.innerHTML = `
-        <div class="demo-kicker"><span>${mode === "allowed" ? "Allowed allocation" : "Duplicate attack"}</span><span>${running ? "Replaying…" : "Receipt-backed replay"}</span></div>
+        <div class="demo-kicker"><span>REPLAY</span><span>${mode === "allowed" ? "Allowed allocation" : "Duplicate attack"} · ${running ? "Replaying…" : "not a live transaction"}</span></div>
         <div class="demo-steps">
-          ${stages.map(([number, title, detail, state], index) => `<article class="demo-step ${state} ${running ? "is-running" : ""}" style="--delay:${index * 180}ms"><span>${number}</span><div><h3>${title}</h3><p>${detail}</p></div><strong>${state === "blocked" ? "Blocked" : state === "settled" ? "Settled" : "Verified"}</strong></article>`).join("")}
+          ${stages.map(([number, title, detail, state], index) => `<article class="demo-step ${state} ${running ? "is-running" : ""}" style="--delay:${index * 180}ms"><span>${number}</span><div><h3>${title}</h3><p>${detail}</p></div><strong>${state === "blocked" ? "Blocked" : state === "settled" ? "Reported settle" : "Verified"}</strong></article>`).join("")}
         </div>
         <p class="demo-boundary">This is a guided replay of the linked testnet receipts. It does not request a wallet or spend funds.</p>`;
     }
