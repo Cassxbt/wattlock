@@ -38,7 +38,7 @@ Live check: CC3 settle [`0x5285…ac5f`](https://creditcoin-testnet.blockscout.c
 | `BLOCK` — same Attestcoin query cannot pay twice | [CC3 failed `settleWithProof`](https://creditcoin-testnet.blockscout.com/tx/0x13c8302c6aca4a7ce60a284195152a9af0206b4636957a407ad6d7c6f24e0e56) — `Query already processed` |
 | `VERIFY` — full addresses, IDs, and outcome | [deployment and evidence record](docs/DEPLOYMENTS.md) |
 
-The allowed path was not simulated: `WattLockASC` verified an Attestcoin proof for the Sepolia reservation in the CC3 settlement transaction, emitted `JobSettled`, transferred the fixed escrow to the provider, and marked the certificate consumed.
+The allowed path was not simulated: `WattLockASC` verified an Attestcoin proof for the Sepolia reservation in the CC3 settlement transaction, emitted `JobSettled`, transferred the fixed escrow to the provider, and marked the certificate consumed. Attestcoin query id `0x878e33a512eca89f670b0ca875ba27654aa43a27d532bade9c8cd35df7637c18`.
 
 ## Architecture
 
@@ -85,7 +85,10 @@ Requirements: Foundry and Yarn.
 yarn install --frozen-lockfile
 yarn build
 NO_PROXY='*' forge test --offline
+yarn judge:verify
 ```
+
+`yarn verify` is format + Foundry. `yarn judge:verify` re-reads public Sepolia and CC3 RPCs and **exits 1** if README hashes, the 11-test count, or the `0x0FD2` skip admission drift. It does not call the precompile from Anvil.
 
 The repository contains 11 unit tests covering the allowed settlement and terminal reservation, allocation mismatch, certificate/query replay, receipt/issuer failures, owner/energy/expiry/source checks, zero job IDs, and reclaim behavior. Those tests skip the native `0x0FD2` precompile (`processVerifiedForTest`). The linked CC3 settlement receipt is the live Attestcoin evidence.
 
