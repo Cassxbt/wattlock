@@ -1,9 +1,10 @@
 const WattLockSite = (() => {
+  const base = location.pathname.match(/^\/wattlock(?=\/|$)/) ? "/wattlock" : "";
   const nav = [
-    ["How it works", "/how-it-works/"],
-    ["Play demo", "/demo/"],
-    ["Proof", "/proof/"],
-    ["FAQ", "/faq/"],
+    ["How it works", `${base}/how-it-works/`],
+    ["Play demo", `${base}/demo/`],
+    ["Proof", `${base}/proof/`],
+    ["FAQ", `${base}/faq/`],
   ];
 
   function mountChrome(active) {
@@ -12,18 +13,18 @@ const WattLockSite = (() => {
 
     if (header) {
       header.innerHTML = `
-        <a class="brand" href="/" aria-label="WattLock home"><span class="brand-mark">W</span><span>WattLock</span></a>
+        <a class="brand" href="${base}/" aria-label="WattLock home"><span class="brand-mark">W</span><span>WattLock</span></a>
         <nav aria-label="Main navigation">
           ${nav.map(([label, href]) => `<a class="${active === label ? "is-active" : ""}" href="${href}">${label}</a>`).join("")}
         </nav>
-        <a class="nav-cta" href="/proof/">Verify a settlement</a>`;
+        <a class="nav-cta" href="${base}/proof/">Verify a settlement</a>`;
     }
 
     if (footer) {
       footer.innerHTML = `
-        <div><a class="brand" href="/"><span class="brand-mark">W</span><span>WattLock</span></a><p>Certificate-backed compute allocation.</p></div>
+        <div><a class="brand" href="${base}/"><span class="brand-mark">W</span><span>WattLock</span></a><p>Certificate-backed compute allocation.</p></div>
         <div class="footer-links">
-          <a href="/how-it-works/">How it works</a><a href="/demo/">Play demo</a><a href="/proof/">Proof</a><a href="/faq/">FAQ</a>
+          <a href="${base}/how-it-works/">How it works</a><a href="${base}/demo/">Play demo</a><a href="${base}/proof/">Proof</a><a href="${base}/faq/">FAQ</a>
         </div>
         <p class="footer-note">Sepolia → Attestcoin → CC3 Testnet</p>`;
     }
