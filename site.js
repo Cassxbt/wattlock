@@ -1,32 +1,61 @@
 const WattLockSite = (() => {
   const base = location.pathname.match(/^\/wattlock(?=\/|$)/) ? "/wattlock" : "";
   const nav = [
-    ["How it works", `${base}/how-it-works/`],
-    ["Play demo", `${base}/demo/`],
+    ["Mechanism", `${base}/how-it-works/`],
+    ["Replay", `${base}/demo/`],
     ["Proof", `${base}/proof/`],
     ["FAQ", `${base}/faq/`],
   ];
 
+  function ensureFonts() {
+    if (document.querySelector("[data-geist-fonts]")) return;
+    const fonts = document.createElement("link");
+    fonts.rel = "stylesheet";
+    fonts.setAttribute("data-geist-fonts", "");
+    fonts.href =
+      "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.5/index.css";
+    const mono = document.createElement("link");
+    mono.rel = "stylesheet";
+    mono.href = "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.2.5/index.css";
+    document.head.append(fonts, mono);
+  }
+
   function mountChrome(active) {
+    ensureFonts();
     const header = document.querySelector("[data-site-header]");
     const footer = document.querySelector("[data-site-footer]");
 
     if (header) {
+      const activeFor = (label) =>
+        active === label ||
+        (active === "Play demo" && label === "Replay") ||
+        (active === "How it works" && label === "Mechanism");
       header.innerHTML = `
-        <a class="brand" href="${base}/" aria-label="WattLock home"><span class="brand-mark">W</span><span>WattLock</span></a>
+        <a class="brand" href="${base}/" aria-label="WattLock home"><span class="brand-mark">W</span>WattLock</a>
         <nav aria-label="Main navigation">
-          ${nav.map(([label, href]) => `<a class="${active === label ? "is-active" : ""}" href="${href}">${label}</a>`).join("")}
+          ${nav.map(([label, href]) => `<a class="${activeFor(label) ? "is-active" : ""}" href="${href}">${label}</a>`).join("")}
         </nav>
-        <a class="nav-cta" href="${base}/proof/">Verify a settlement</a>`;
+        <a class="nav-cta" href="${base}/proof/">Inspect proof</a>`;
     }
 
     if (footer) {
       footer.innerHTML = `
-        <div><a class="brand" href="${base}/"><span class="brand-mark">W</span><span>WattLock</span></a><p>Certificate-backed compute allocation.</p></div>
-        <div class="footer-links">
-          <a href="${base}/how-it-works/">How it works</a><a href="${base}/demo/">Play demo</a><a href="${base}/proof/">Proof</a><a href="${base}/faq/">FAQ</a>
+        <div>
+          <a class="brand" href="${base}/"><span class="brand-mark">W</span>WattLock</a>
+          <p>Certificate-backed compute allocation on Creditcoin.</p>
+          <p class="footer-note">Sepolia to Attestcoin to CC3 testnet. Demo is a replay.</p>
         </div>
-        <p class="footer-note">Sepolia → Attestcoin → CC3 Testnet</p>`;
+        <div class="footer-links">
+          <a href="${base}/proof/">Proof</a>
+          <a href="${base}/demo/">Replay</a>
+          <a href="${base}/how-it-works/">Mechanism</a>
+          <a href="${base}/faq/">FAQ</a>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/Cassxbt/wattlock">GitHub</a>
+          <a href="https://creditcoin-testnet.blockscout.com/address/0x43259Ac2952ae1583BDF0DC4756Eb86ec963ee39?tab=contract">WattLockASC</a>
+          <a href="https://wattlock.vercel.app/proof/">Live proof</a>
+        </div>`;
     }
   }
 

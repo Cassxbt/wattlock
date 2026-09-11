@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="WattLock is a certificate-backed compute-allocation gate. A CC3 job pays only after Attestcoin proves an exact Sepolia reservation." />
-    <title>WattLock | Settle compute once</title>
+    <title>WattLock | One certificate, one compute claim</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.5/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.2.5/index.css" />
     <link rel="stylesheet" href="site.css" />
     <script src="site.js"></script>
   </head>
@@ -13,48 +15,68 @@
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">DePIN settlement control</p>
-          <h1>One certificate.<br /><em>One</em> compute claim.</h1>
-          <p>A compute escrow settles on Creditcoin CC3 only after Attestcoin proves its exact certificate allocation was reserved on Sepolia.</p>
-          <div class="hero-actions"><a class="button" href="demo/">Play the allocation</a><a class="button secondary" href="proof/">Inspect the proof</a></div>
-          <div class="hero-proof"><span></span><span>Real Sepolia reservation, Attestcoin verification, and CC3 payout</span></div>
+          <p class="badge">The allocation gate for DePIN settlement</p>
+          <h1>Your entire compute claim, one certificate to lock it</h1>
+          <p>A CC3 escrow pays only after Attestcoin proves the exact energy-certificate allocation was reserved on Sepolia. Duplicate claims revert on-chain.</p>
+          <p class="status-pill">Live testnet. No wallet required.</p>
+          <div class="hero-actions">
+            <a class="button" href="proof/">Inspect the proof</a>
+            <a class="button secondary" href="demo/">Play the replay</a>
+          </div>
         </div>
         <div class="hero-media">
-          <img src="assets/wattlock-hero.png" alt="A translucent certificate tile suspended above a compact compute module" />
-          <div class="hero-receipt"><p>Published receipts, not a live recompute</p><strong>One CC3 settle. One Sepolia refuse.</strong></div>
+          <img src="assets/wattlock-hero.png" alt="Certificate tile over a compute module" />
+          <div class="hero-receipt">
+            <div><p>Published settle</p><strong>1 tCTC on CC3</strong></div>
+            <div><p>Published refuse</p><strong>Query already processed</strong></div>
+          </div>
         </div>
       </section>
 
-      <section class="section-tight">
-        <div class="failure-grid">
-          <article class="failure-statement"><p>A certificate can be claimed by several compute settlements when their ledgers never meet.</p></article>
-          <article class="failure-detail"><p>Most systems can report duplicate allocation after it happens. WattLock creates one enforceable source reservation and makes the downstream escrow depend on its proof.</p><a class="button secondary" href="how-it-works/">See the mechanism</a></article>
-        </div>
-      </section>
+      <div class="benefit-row">
+        <article><h3>Reserve once</h3><p>Sepolia emits one terminal CertificateReserved event.</p></article>
+        <article><h3>Prove it</h3><p>Attestcoin 0x0FD2 verifies that receipt inside settle.</p></article>
+        <article><h3>Pay once</h3><p>The funded job releases a fixed 1 tCTC escrow.</p></article>
+        <article><h3>Block reuse</h3><p>Source and destination both revert on a second claim.</p></article>
+      </div>
 
       <section class="section mechanism" aria-labelledby="mechanism-title">
-        <div class="mechanism-sticky"><p class="eyebrow">One closed loop</p><h2 id="mechanism-title">Reserve. Prove. Lock. Settle. Block. Verify.</h2><p>This is not a certificate registry. It is a gate in the compute settlement path.</p></div>
+        <div class="mechanism-sticky">
+          <p class="badge">Less noise. More lock.</p>
+          <h2 id="mechanism-title">Reserve. Prove. Lock. Settle. Block. Verify.</h2>
+          <p class="section-lede">This is not a certificate registry. It is a gate in the compute settlement path. Remove Attestcoin and the payout disappears.</p>
+        </div>
         <div class="mechanism-list">
-          <article><span>01</span><div><h3>Reserve</h3><p>The certificate owner makes one terminal reservation on Sepolia.</p></div><strong>Source state</strong></article>
-          <article><span>02</span><div><h3>Prove</h3><p>Attestcoin carries the exact source receipt into the CC3 settlement call.</p></div><strong>Sponsor engine</strong></article>
-          <article><span>03</span><div><h3>Lock</h3><p>WattLock checks issuer, event, owner, energy, deadline, and allocation commitment.</p></div><strong>Exact match</strong></article>
-          <article><span>04</span><div><h3>Settle</h3><p>Only then does the fixed test-CTC escrow pay the fixed compute provider.</p></div><strong>Atomic payout</strong></article>
-          <article><span>05</span><div><h3>Block</h3><p>Reusing the certificate fails at the source with a named on-chain error.</p></div><strong>Terminal refusal</strong></article>
+          <article><span>Reserve</span><div><h3>Terminal source lock</h3><p>The certificate owner makes one reservation on Sepolia.</p></div><strong>Source state</strong></article>
+          <article><span>Prove</span><div><h3>Attestcoin is the engine</h3><p>The CC3 call verifies the exact source receipt in the same transaction.</p></div><strong>0x0FD2</strong></article>
+          <article><span>Lock</span><div><h3>Every field must match</h3><p>Issuer, event, owner, energy, deadline, and allocation hash.</p></div><strong>Exact match</strong></article>
+          <article><span>Settle</span><div><h3>Escrow pays the provider</h3><p>Only then does the fixed test-CTC leave the job.</p></div><strong>Atomic payout</strong></article>
+          <article><span>Block</span><div><h3>Reuse is a named revert</h3><p>CertificateAlreadyReserved on Sepolia. Query already processed on CC3.</p></div><strong>Live refuses</strong></article>
         </div>
       </section>
 
       <section class="section-tight">
         <div class="proof-callout">
-          <div><p class="eyebrow">Attestcoin is not a badge</p><h2>Remove Attestcoin and the payout path disappears.</h2><p>The CC3 contract does not trust a dashboard, admin, or off-chain attestation. It verifies the proved Sepolia reservation in the same transaction that settles the escrow.</p><a class="button" href="proof/">Verify the live record</a></div>
-          <div class="proof-facts"><div><small>Source</small><strong>Ethereum Sepolia</strong></div><div><small>Attestcoin key</small><strong>1</strong></div><div><small>Settlement</small><strong>Creditcoin CC3</strong></div><div><small>Live result</small><strong>1 tCTC paid</strong></div></div>
+          <div>
+            <p class="badge">No-wallet judge path</p>
+            <h2>Open /proof. Watch it recompute.</h2>
+            <p>The page hashes queryId from the 0x0FD2 log. A tampered hash turns red. yarn judge:verify fails if the README lies.</p>
+            <div class="hero-actions"><a class="button" href="proof/">Open live proof</a></div>
+          </div>
+          <div class="proof-facts">
+            <div><small>Source</small><strong>Ethereum Sepolia</strong></div>
+            <div><small>Attestcoin key</small><strong>1</strong></div>
+            <div><small>Settlement</small><strong>Creditcoin CC3</strong></div>
+            <div><small>Contracts</small><strong>Blockscout verified</strong></div>
+          </div>
         </div>
       </section>
 
       <section class="section route-grid" aria-label="Judge paths">
-        <article class="route-card"><p class="eyebrow">Try the gate</p><h3>Watch the allowed allocation settle, then attack it with a duplicate certificate.</h3><p>The demo is deterministic, quick, and tied to the real receipt sequence.</p><a href="demo/">Open play demo</a></article>
-        <article class="route-card"><p class="eyebrow">Verify without a wallet</p><h3>Every key claim opens to a public transaction or deployed contract.</h3><p>Success and refusal live side by side.</p><a href="proof/">Open proof page</a></article>
-        <article class="route-card"><p class="eyebrow">Understand the boundary</p><h3>WattLock verifies allocation state, not physical clean energy.</h3><p>The product never claims more than the receipts show.</p><a href="faq/">Read the FAQ</a></article>
-        <article class="route-card"><p class="eyebrow">Built for the DePIN track</p><h3>Compute-job settlement is the product. The certificate is the eligibility input.</h3><p>A reusable settlement control for systems that need a one-time allocation before releasing compute rewards.</p><a href="how-it-works/">Explore the architecture</a></article>
+        <article class="route-card"><h3>Replay the gate without a wallet</h3><p>Allowed settle, then a duplicate certificate. Labeled replay of published receipts.</p><a href="demo/">Open replay</a></article>
+        <article class="route-card"><h3>Read the exact mechanism</h3><p>One certificate, one job, one payout. No token and no marketplace.</p><a href="how-it-works/">How it works</a></article>
+        <article class="route-card"><h3>What the proof does not say</h3><p>No physical generation, no green GPU, no hourly matching.</p><a href="faq/">FAQ</a></article>
+        <article class="route-card"><h3>Source on GitHub</h3><p>Foundry suite, judge:verify, and the live receipt table.</p><a href="https://github.com/Cassxbt/wattlock">github.com/Cassxbt/wattlock</a></article>
       </section>
     </main>
     <footer class="site-footer" data-site-footer></footer>

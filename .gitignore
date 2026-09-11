@@ -13,3 +13,7 @@ broadcast/
 .vercel-out/
 docs/JUDGING_AND_DECISIONS.md
 .vercel
+.firecrawl/
+.claude/
+docs/research/
+docs/design-references/
